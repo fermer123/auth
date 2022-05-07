@@ -11,7 +11,7 @@ const HomePage = () => {
       <h1> Welcome</h1>
       <button
         onClick={() => {
-          removeUser();
+          dispatch(removeUser());
         }}
       >
         Log out from {email}
