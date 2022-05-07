@@ -15,9 +15,9 @@ const Form = ({ title, handleClick }) => {
         value={pass}
         onChange={(e) => setPass(e.target.value)}
       />
-      <button onClick={handleClick}>{title}</button>
+      <button onClick={() => handleClick(email, pass)}>{title}</button>
     </div>
   );
 };
 
-export default Form;
+export { Form };
