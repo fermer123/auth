@@ -6,11 +6,13 @@ const Form = ({ title, handleClick }) => {
   return (
     <div>
       <input
+        placeholder='Email'
         type='email'
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
+        placeholder='password'
         type='password'
         value={pass}
         onChange={(e) => setPass(e.target.value)}
