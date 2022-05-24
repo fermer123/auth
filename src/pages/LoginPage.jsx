@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import Login from '../../components/Login';
-import style from './Login.module.scss';
+import Login from '../components/Login';
 
 const LoginPage = () => {
   return (

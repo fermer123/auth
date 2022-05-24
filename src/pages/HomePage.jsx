@@ -1,8 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
-import { removeUser } from '../../store/slices/userSlice';
-import style from './Home.module.scss';
+import { useAuth } from '../hooks/useAuth';
+import { removeUser } from '../store/slices/userSlice';
 
 const HomePage = () => {
   const dispatch = useDispatch();
