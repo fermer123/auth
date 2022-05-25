@@ -12,7 +12,7 @@ const Form = ({ title, handleClick }) => {
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
-        placeholder='password'
+        placeholder='Password'
         type='password'
         value={pass}
         onChange={(e) => setPass(e.target.value)}

@@ -10,6 +10,7 @@ const SignUp = () => {
 
   const handleRegister = (email, password) => {
     const auth = getAuth();
+    //console.log(auth);
     createUserWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
         console.log(user);
@@ -24,7 +25,7 @@ const SignUp = () => {
       })
       .catch(console.error);
   };
-  return <Form title='register' handleClick={handleRegister} />;
+  return <Form title='Register' handleClick={handleRegister} />;
 };
 
 export default SignUp;

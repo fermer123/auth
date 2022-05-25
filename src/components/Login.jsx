@@ -10,6 +10,7 @@ const Login = () => {
 
   const handleLogin = (email, password) => {
     const auth = getAuth();
+    //console.log(auth);
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
         dispatch(
@@ -25,7 +26,7 @@ const Login = () => {
   };
   return (
     <div>
-      <Form title='sign in' handleClick={handleLogin} />
+      <Form title='Sign in' handleClick={handleLogin} />
     </div>
   );
 };
