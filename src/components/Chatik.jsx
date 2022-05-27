@@ -7,12 +7,13 @@ import {
   onSnapshot,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-const data = new Date();
+
 const Chatik = () => {
   const [messeges, setMesseges] = useState([]);
+  const [content, setContent] = useState('');
   let msg = [];
+  const db = getFirestore();
   useEffect(() => {
-    const db = getFirestore();
     const mes = onSnapshot(collection(db, 'messages'), (doc) => {
       doc.forEach((d) => {
         //setMesseges((e) => [...e, d.data()]);
@@ -25,18 +26,30 @@ const Chatik = () => {
       mes();
     };
   }, []);
-  {
-    console.log(messeges);
-  }
-  // const addMessage = async (e) => {
-  //   await addDoc;
-  // };
-  console.log(msg);
+
+  console.log(messeges);
+
+  const addMessage = async (e) => {
+    await addDoc(collection(db, 'messages'), {
+      content,
+    });
+    setContent('');
+  };
+
   return (
-    <div style={{ width: '200px', height: '100px' }}>
+    <div style={{ width: '400px', height: '500px' }}>
       {messeges.map((e) => (
-        <div>{e.Text}</div>
+        <div style={{ marginLeft: '100px' }} key={e.id}>
+          {e.Text}
+        </div>
       ))}
+      {messeges.map((e) => (
+        <div style={{ marginRight: '100px' }} key={e.id}>
+          {e.content}
+        </div>
+      ))}
+      <input value={content} onChange={(e) => setContent(e.target.value)} />
+      <button onClick={addMessage}>отправь</button>
     </div>
   );
 };
