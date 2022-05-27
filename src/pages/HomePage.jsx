@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import Chatik from '../components/Chatik';
 import { useAuth } from '../hooks/useAuth';
 import { removeUser } from '../store/slices/userSlice';
 
@@ -9,6 +10,7 @@ const HomePage = () => {
   return isAuth ? (
     <div>
       <h1> Welcome</h1>
+      <Chatik />
       <button
         onClick={() => {
           dispatch(removeUser());
