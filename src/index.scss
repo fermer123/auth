@@ -15,3 +15,7 @@ body {
   min-height: 100vh;
   background: linear-gradient(45deg, #fbda61, #ff5acd);
 }
+
+::-webkit-scrollbar {
+  width: 0;
+}

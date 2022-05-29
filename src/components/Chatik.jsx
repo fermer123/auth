@@ -7,8 +7,10 @@ import {
   onSnapshot,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import { useAuth } from '../hooks/useAuth';
 
 const Chatik = () => {
+  const { email } = useAuth();
   const [messeges, setMesseges] = useState([]);
   const [content, setContent] = useState('');
   let msg = [];
@@ -16,9 +18,9 @@ const Chatik = () => {
   useEffect(() => {
     const mes = onSnapshot(collection(db, 'messages'), (doc) => {
       doc.forEach((d) => {
-        //setMesseges((e) => [...e, d.data()]);
-        msg.push(d.data());
-        setMesseges(msg);
+        setMesseges((e) => [...e, d.data()]);
+        // msg.push(d.data());
+        //setMesseges(msg);
       });
     });
 
@@ -32,12 +34,13 @@ const Chatik = () => {
   const addMessage = async (e) => {
     await addDoc(collection(db, 'messages'), {
       content,
+      email,
     });
     setContent('');
   };
 
   return (
-    <div style={{ width: '400px', height: '500px' }}>
+    <div style={{ width: '400px', height: '500px', overflowX: 'scroll' }}>
       {messeges.map((e) => (
         <div style={{ marginLeft: '100px' }} key={e.id}>
           {e.Text}
