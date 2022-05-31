@@ -8,19 +8,22 @@ import {
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-
+import { v4 as uuidv4 } from 'uuid';
 const Chatik = () => {
+  const { id } = useAuth();
+
   const { email } = useAuth();
   const [messeges, setMesseges] = useState([]);
-  const [content, setContent] = useState('');
+  const [text, setText] = useState('');
   let msg = [];
   const db = getFirestore();
   useEffect(() => {
     const mes = onSnapshot(collection(db, 'messages'), (doc) => {
       doc.forEach((d) => {
-        setMesseges((e) => [...e, d.data()]);
-        // msg.push(d.data());
-        //setMesseges(msg);
+        console.log(d);
+        //setMesseges((e) => [...e, d.data()]);
+        msg.push(d.data(d));
+        setMesseges(msg);
       });
     });
 
@@ -31,27 +34,25 @@ const Chatik = () => {
 
   console.log(messeges);
 
-  const addMessage = async (e) => {
+  const addMessage = async () => {
     await addDoc(collection(db, 'messages'), {
-      content,
+      text,
       email,
+      id: uuidv4(),
     });
-    setContent('');
+    setText('');
   };
 
   return (
     <div style={{ width: '400px', height: '500px', overflowX: 'scroll' }}>
-      {messeges.map((e) => (
-        <div style={{ marginLeft: '100px' }} key={e.id}>
-          {e.Text}
+      {messeges.map(({ text, id, email }) => (
+        <div style={{ marginLeft: '100px' }} key={id}>
+          <h4>{email}</h4>
+          <h5>{text}</h5>
         </div>
       ))}
-      {messeges.map((e) => (
-        <div style={{ marginRight: '100px' }} key={e.id}>
-          {e.content}
-        </div>
-      ))}
-      <input value={content} onChange={(e) => setContent(e.target.value)} />
+
+      <input value={text} onChange={(e) => setText(e.target.value)} />
       <button onClick={addMessage}>отправь</button>
     </div>
   );
