@@ -8,10 +8,9 @@ import {
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { v4 as uuidv4 } from 'uuid';
+
 const Chatik = () => {
   const { id } = useAuth();
-
   const { email } = useAuth();
   const [messeges, setMesseges] = useState([]);
   const [text, setText] = useState('');
@@ -20,9 +19,9 @@ const Chatik = () => {
   useEffect(() => {
     const mes = onSnapshot(collection(db, 'messages'), (doc) => {
       doc.forEach((d) => {
-        console.log(d);
+        console.log(d.data());
         //setMesseges((e) => [...e, d.data()]);
-        msg.push(d.data(d));
+        msg.push(d.data());
         setMesseges(msg);
       });
     });
@@ -32,13 +31,10 @@ const Chatik = () => {
     };
   }, []);
 
-  console.log(messeges);
-
   const addMessage = async () => {
     await addDoc(collection(db, 'messages'), {
       text,
       email,
-      id: uuidv4(),
     });
     setText('');
   };
